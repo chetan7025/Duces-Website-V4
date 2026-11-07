@@ -41,12 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  /* AUTOMATIC COPYRIGHT YEAR */
-  const yearElement = document.getElementById("year");
+  /* AUTOMATIC COPYRIGHT YEAR
+     Supports both IDs used across the website. */
+  const currentYear = new Date().getFullYear();
 
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
-  }
+  document.querySelectorAll("#year, #current-year").forEach(function (element) {
+    element.textContent = currentYear;
+  });
 
   /* FAQ ACCORDION */
   const faqItems = document.querySelectorAll(".faq-list details");
@@ -63,17 +64,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  /* CONTACT FORM VALIDATION */
-  const contactForm = document.querySelector(".contact-form");
+  /* CONTACT FORM VALIDATION
+     Supports both:
+     1. <form class="contact-form">
+     2. <div class="contact-form"><form>...</form></div> */
+  const contactForms = document.querySelectorAll(
+    ".contact-form form, form.contact-form"
+  );
 
-  if (contactForm) {
-    contactForm.addEventListener("submit", function (event) {
-      if (!contactForm.checkValidity()) {
+  contactForms.forEach(function (form) {
+    form.addEventListener("submit", function (event) {
+      if (!form.checkValidity()) {
         event.preventDefault();
-        contactForm.reportValidity();
+        form.reportValidity();
       }
     });
-  }
+  });
 
   /* CLOSE MOBILE MENU WHEN SCREEN RESIZES */
   window.addEventListener("resize", function () {
