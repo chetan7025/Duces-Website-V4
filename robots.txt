@@ -1,0 +1,5 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://chetan7025.github.io/Duces-Website-V4/sitemap.xml
